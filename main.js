@@ -1,10 +1,17 @@
 'use strict'
 
 
+class ButtonElement {
 
+    createButton() {
+        this.myButton = document.createElement('button')
+        this.myFormm.appendChild(this.myButton)
+    }
+}
 
-class CheckboxElemen {
+class CheckboxElemen extends ButtonElement {
     constructor(checkedValue) {
+        super()
         this.checkedValue = checkedValue
     }
     createCheckedInput() {
@@ -31,7 +38,7 @@ class TextElement extends CheckboxElemen {
 
 
 class FormElemen extends TextElement {
-    constructor({ elemsForm, placeholder, checkedValue }) {
+    constructor({ elemsForm, placeholder, checkedValue, }) {
         super(placeholder, checkedValue)
         this.elemsForm = elemsForm
     }
@@ -48,8 +55,9 @@ const newForm = new FormElemen({
     elemsForm: '.js--form-inner',
     placeholder: 'введите текст',
     checkedValue: 'checked'
-    
+
 })
 newForm.createForm()
 newForm.createTextInput()
 newForm.createCheckedInput()
+newForm.createButton()
