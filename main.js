@@ -1,55 +1,5 @@
 'use strict'
 
-
-// class ButtonElement extends FormElemen {
-
-//     createButton() {
-//         this.myButton = document.createElement('button')
-//         this.myFormm.appendChild(this.myButton)
-//     }
-// }
-
-// class CheckboxElemen extends FormElemen {
-//     constructor(checkedValue) {
-//         super()
-//         this.checkedValue = checkedValue
-//     }
-//     createCheckedInput() {
-//         this.inputCheckBox = document.createElement('input')
-//         this.inputCheckBox.setAttribute('type', 'checkbox')
-//         this.inputCheckBox.setAttribute(`${this.checkedValue}`, `${this.checkedValue}`)
-//         this.myFormm.appendChild(this.inputCheckBox)
-//     }
-// }
-
-// class TextElement extends FormElemen {
-//     constructor(placeholder, checkedValue) {
-//         super(checkedValue)
-//         this.placeholder = placeholder
-//     }
-//     createTextInput() {
-//         this.inputText = document.createElement(`input`)
-//         this.inputText.type = 'text'
-//         this.inputText.placeholder = `${this.placeholder}`
-//         this.myFormm.appendChild(this.inputText)
-
-//     }
-// }
-
-
-// class FormElemen {
-//     constructor({ elemsForm, placeholder, checkedValue, }) {
-//         super(placeholder, checkedValue)
-//         this.elemsForm = elemsForm
-//     }
-
-//     createForm() {
-//         this.myFormm = document.createElement('form')
-//         const formElems = document.querySelector(this.elemsForm)
-//         formElems.appendChild(this.myFormm)
-//     }
-// }
-
 class FormElem {
     constructor(elemsForm) {
         this.elemsForm = elemsForm
@@ -75,17 +25,19 @@ class CreateTextElem extends FormElem {
 
 }
 
-class CheckBoxElemen extends FormElem {
+class createCheckBoxElemen extends FormElem {
     constructor({checkedValue,elemsForm}) {
         super(elemsForm)
         this.checkedValue = checkedValue
     }
     createCheckedInput() {
-        this.inputCheckBox = document.createElement('input')
-        this.inputCheckBox.setAttribute('type', 'checkbox')
-        this.inputCheckBox.setAttribute(`${this.checkedValue}`, `${this.checkedValue}`)
-        this.myFormm.appendChild(this.inputCheckBox)
-        return this.inputCheckBox
+        
+        const inputCheckBox = document.createElement('input')
+        inputCheckBox.setAttribute('type', 'checkbox')
+        inputCheckBox.setAttribute(`${this.checkedValue}`, `${this.checkedValue}`)
+        this.myFormm.appendChild(inputCheckBox)
+       console.log(inputCheckBox)
+       console.log(this.myFormm)
     }
 
 }
@@ -95,10 +47,16 @@ const newForm = new CreateTextElem({
     placeholder: 'введите текст',
 })
 
+const checkbox = new createCheckBoxElemen({
+    elemsForm: '.js--form-inner',
+    checkedValue: 'checked',
+})
+
 
 
 
 newForm.createForm()
 newForm.createTextInput()
-newForm.createCheckedInput()
-newForm.createButton()
+checkbox.createForm()
+checkbox.createCheckedInput()
+// newForm.createButton()
