@@ -1,63 +1,69 @@
 'use strict'
 
-
-class ButtonElement {
-
-    createButton() {
-        this.myButton = document.createElement('button')
-        this.myFormm.appendChild(this.myButton)
+class FormElement {
+    constructor({ name, type, value }) {
+        this.name = name;
+        this.type = type;
+        this.value = value;
+    }
+    showName() {
+        console.log(`Name: ${this.name}`);
+    }
+    getValue() {
+        return this.value;
     }
 }
 
-class CheckboxElemen extends ButtonElement {
-    constructor(checkedValue) {
-        super()
-        this.checkedValue = checkedValue
-    }
-    createCheckedInput() {
-        this.inputCheckBox = document.createElement('input')
-        this.inputCheckBox.setAttribute('type', 'checkbox')
-        this.inputCheckBox.setAttribute(`${this.checkedValue}`, `${this.checkedValue}`)
-        this.myFormm.appendChild(this.inputCheckBox)
-    }
-}
-
-class TextElement extends CheckboxElemen {
-    constructor(placeholder, checkedValue) {
-        super(checkedValue)
+class CreateTextElement extends FormElement {
+    constructor({ placeholder, name, type, value }) {
+        super(name, type, value)
         this.placeholder = placeholder
+        this.type = type
+        this.name = name
     }
-    createTextInput() {
-        this.inputText = document.createElement(`input`)
-        this.inputText.type = 'text'
-        this.inputText.placeholder = `${this.placeholder}`
-        this.myFormm.appendChild(this.inputText)
+    createInput() {
+        this.element = document.createElement('input')
+        this.element.setAttribute('type', this.type)
+        this.element.setAttribute('name', this.name)
+        this.element.setAttribute('placeholder', this.placeholder)
+        this.element.addEventListener('change', () => {
+            this.value = this.element.value
+        })
+    }
+}
+
+class CreateCheckboxElement extends FormElement {
+    constructor({ type, checked }) {
+
+        super(type)
+        this.type = type
+        this.checked = checked
+    }
+    createCheckBox() {
+        
+        this.element = document.createElement('input')
+        this.element.setAttribute('type', this.type);
+        this.element.setAttribute(this.checked, this.checked);
+        // this.element.checked = this.checked
 
     }
 }
 
-
-class FormElemen extends TextElement {
-    constructor({ elemsForm, placeholder, checkedValue, }) {
-        super(placeholder, checkedValue)
-        this.elemsForm = elemsForm
+const textInput = new CreateTextElement(
+    {
+        placeholder: "Text",
+        type: 'text',
+        name: 'userName'
     }
-
-    createForm() {
-        this.myFormm = document.createElement('form')
-        const formElems = document.querySelector(this.elemsForm)
-        formElems.appendChild(this.myFormm)
+)
+const checkBox = new CreateCheckboxElement(
+    {
+        type: 'checkbox',
+        checked: 'false'
     }
-}
+)
+textInput.createInput()
+checkBox.createCheckBox()
 
-
-const newForm = new FormElemen({
-    elemsForm: '.js--form-inner',
-    placeholder: 'введите текст',
-    checkedValue: 'checked'
-
-})
-newForm.createForm()
-newForm.createTextInput()
-newForm.createCheckedInput()
-newForm.createButton()
+document.querySelector('.js--form-inner').insertAdjacentElement('beforeend', textInput.element)
+document.querySelector('.js--form-inner').insertAdjacentElement('beforeend', checkBox.element)
