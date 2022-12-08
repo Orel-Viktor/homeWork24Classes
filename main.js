@@ -33,18 +33,18 @@ class CreateTextElement extends FormElement {
 }
 
 class CreateCheckboxElement extends FormElement {
-    constructor({ type, checked }) {
+    constructor({ type, _checked }) {
 
         super(type)
         this.type = type
-        this.checked = checked
+        this.checked = _checked
     }
     createCheckBox() {
         
         this.element = document.createElement('input')
         this.element.setAttribute('type', this.type);
-        this.element.setAttribute(this.checked, this.checked);
-        // this.element.checked = this.checked
+        this.element.checked = this.checked
+       
 
     }
 }
@@ -59,7 +59,8 @@ const textInput = new CreateTextElement(
 const checkBox = new CreateCheckboxElement(
     {
         type: 'checkbox',
-        checked: 'false'
+        _checked: true,
+        
     }
 )
 textInput.createInput()
